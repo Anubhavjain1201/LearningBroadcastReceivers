@@ -2,4 +2,6 @@
     <string name="app_name">Learning Broadcast Receivers</string>
     <string name="power_connected">Power Connected!</string>
     <string name="power_disconnected">Power Disconnected!</string>
+    <string name="send_custom_broadcast">Send Custom Broadcast</string>
+    <string name="custom_broadcast">Custom Broadcast Received!</string>
 </resources>

@@ -7,6 +7,10 @@ import android.widget.Toast
 
 class MyCustomReceiver : BroadcastReceiver() {
 
+    companion object {
+        private const val ACTION_CUSTOM_BROADCAST = BuildConfig.APPLICATION_ID + ".ACTION_CUSTOM_BROADCAST"
+    }
+
     override fun onReceive(context: Context, intent: Intent) {
 
         when(intent.action){
@@ -17,6 +21,10 @@ class MyCustomReceiver : BroadcastReceiver() {
 
             Intent.ACTION_POWER_DISCONNECTED -> {
                 Toast.makeText(context, context.getString(R.string.power_disconnected), Toast.LENGTH_SHORT).show()
+            }
+
+            ACTION_CUSTOM_BROADCAST -> {
+                Toast.makeText(context, context.getString(R.string.custom_broadcast), Toast.LENGTH_SHORT).show()
             }
         }
     }
