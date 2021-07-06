@@ -24,7 +24,9 @@ class MyCustomReceiver : BroadcastReceiver() {
             }
 
             ACTION_CUSTOM_BROADCAST -> {
-                Toast.makeText(context, context.getString(R.string.custom_broadcast), Toast.LENGTH_SHORT).show()
+
+                val extras = intent.getIntExtra("Random", -1)
+                Toast.makeText(context, context.getString(R.string.custom_broadcast) + "\nRandom Integer : $extras", Toast.LENGTH_SHORT).show()
             }
 
             Intent.ACTION_HEADSET_PLUG -> {

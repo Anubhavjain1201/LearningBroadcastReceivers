@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,6 +15,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val ACTION_CUSTOM_BROADCAST = BuildConfig.APPLICATION_ID + ".ACTION_CUSTOM_BROADCAST"
+        private const val INTENT_EXTRA = "Random"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +38,11 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.sendBroadcast).setOnClickListener {
 
+            val randomInteger = rand(1,20)
+
             val customIntent = Intent(ACTION_CUSTOM_BROADCAST)
+                    .putExtra(INTENT_EXTRA, randomInteger)
+
             LocalBroadcastManager.getInstance(this)
                     .sendBroadcast(customIntent)
         }
@@ -53,6 +59,11 @@ class MainActivity : AppCompatActivity() {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(customReceiver)
         this.unregisterReceiver(customReceiver)
         super.onDestroy()
+    }
+
+    fun rand(start: Int, end: Int): Int {
+        require(start <= end) { "Illegal Argument" }
+        return (start..end).random()
     }
 
 }
