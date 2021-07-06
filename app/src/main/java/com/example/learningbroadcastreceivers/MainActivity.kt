@@ -22,15 +22,17 @@ class MainActivity : AppCompatActivity() {
 
         customReceiver = MyCustomReceiver()
 
+        //Intent Filter for power
         val intentFilter = IntentFilter()
         intentFilter.addAction(Intent.ACTION_POWER_CONNECTED)
         intentFilter.addAction(Intent.ACTION_POWER_DISCONNECTED)
 
-        this.registerReceiver(customReceiver, intentFilter)
-
+        //Intent Filter for Custom Broadcast
         val intentFilterForLocalCustomBroadcast = IntentFilter(ACTION_CUSTOM_BROADCAST)
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(customReceiver, intentFilterForLocalCustomBroadcast)
+        //Intent Filter for Headset
+        val intentFilterForHeadset = IntentFilter()
+        intentFilterForHeadset.addAction(Intent.ACTION_HEADSET_PLUG)
 
         findViewById<Button>(R.id.sendBroadcast).setOnClickListener {
 
@@ -38,11 +40,18 @@ class MainActivity : AppCompatActivity() {
             LocalBroadcastManager.getInstance(this)
                     .sendBroadcast(customIntent)
         }
+
+        //Register all the receivers
+        this.registerReceiver(customReceiver, intentFilter)
+        LocalBroadcastManager.getInstance(this).registerReceiver(customReceiver, intentFilterForLocalCustomBroadcast)
+        this.registerReceiver(customReceiver, intentFilterForHeadset)
     }
 
     override fun onDestroy() {
+        //Unregister all the receivers
         this.unregisterReceiver(customReceiver)
         LocalBroadcastManager.getInstance(this).unregisterReceiver(customReceiver)
+        this.unregisterReceiver(customReceiver)
         super.onDestroy()
     }
 

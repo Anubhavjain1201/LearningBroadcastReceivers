@@ -26,6 +26,20 @@ class MyCustomReceiver : BroadcastReceiver() {
             ACTION_CUSTOM_BROADCAST -> {
                 Toast.makeText(context, context.getString(R.string.custom_broadcast), Toast.LENGTH_SHORT).show()
             }
+
+            Intent.ACTION_HEADSET_PLUG -> {
+
+                when(intent.getIntExtra("state", -1)){
+
+                    0 -> {
+                        Toast.makeText(context, context.getString(R.string.headset_unplugged), Toast.LENGTH_SHORT).show()
+                    }
+
+                    1 -> {
+                        Toast.makeText(context, context.getString(R.string.headset_plugged), Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
     }
 }
